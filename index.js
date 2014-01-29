@@ -49,7 +49,9 @@ ES.prototype.query = function(str, opts){
 
   // url
   debug('query %j %j', str, opts);
-  var url = this.url + '/' + this.index + '/' + this.type + '/_search';
+  var url = this.index
+    ? this.url + '/' + this.index + '/' + this.type + '/_search'
+    : this.url + '/_search';
 
   request
   .get(url)
