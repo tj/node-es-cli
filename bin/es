@@ -62,7 +62,11 @@ function output(log) {
   if ('fatal' == level) color = '31';
 
   console.log();
-  console.log('  %s - %s (%s) - %s', date, level, host, type);
+  console.log('   type: %s', type);
+  console.log('   host: %s', host);
+  console.log('  level: %s', level);
+  console.log('   date: %s', date);
   msg = inspect(msg, { colors: true, depth: Infinity });
+  console.log();
   console.log('  %s', msg);
 }
