@@ -31,6 +31,8 @@ function ES(opts) {
 /**
  * Query with `str` and return an emitter.
  *
+ * TODO: .sort
+ *
  * @param {String} str
  * @param {Object} opts
  * @return {Emitter}
@@ -42,12 +44,16 @@ ES.prototype.query = function(str, opts){
   opts = opts || {};
   str = str || '*';
 
+  // options
+  var size = opts.size || 10;
+
+  // url
   debug('query %j %j', str, opts);
   var url = this.url + '/' + this.index + '/' + this.type + '/_search';
 
   request
   .get(url)
-  .query({ q: str })
+  .query({ q: str, size: size })
   .end(function(err, res){
     if (err) return e.emit('error', err);
     if (res.error) return e.emit('error', res.error);
