@@ -35,8 +35,13 @@ var query = es.query(str);
 
 // output
 
+console.log();
 query.on('data', function(logs){
   logs.map(output);
+});
+
+process.on('exit', function(){
+  console.log();
 });
 
 /**
@@ -44,7 +49,7 @@ query.on('data', function(logs){
  */
 
 function output(log) {
-  var format = 'MMMM Do YYYY, h:mm:ss a';
+  var format = 'MMM Do YY, h:mm:ssa';
   var date = moment(log.timestamp).format(format);
   var host = log.hostname;
   var msg = log.message;
