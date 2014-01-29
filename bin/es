@@ -49,7 +49,7 @@ query.on('data', function(logs){
  */
 
 function output(log) {
-  var format = 'MMM Do YY, h:mm:ssa';
+  var format = 'MMMM Do, h:mm:ssa';
   var date = moment(log.timestamp).format(format);
   var host = log.hostname;
   var msg = log.message;
