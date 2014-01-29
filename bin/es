@@ -58,10 +58,10 @@ function output(log) {
   if ('fatal' == level) color = '31';
 
   console.log();
-  console.log('   \033[1mtype:\033[0m %s', type);
-  console.log('   \033[1mhost:\033[0m %s', host);
+  console.log('  \033[1mtype:\033[0m %s', type);
+  console.log('  \033[1mhost:\033[0m %s', host);
   console.log('  \033[1mlevel:\033[0m \033[' + color + 'm%s\033[0m', level);
-  console.log('   \033[1mdate:\033[0m %s', date);
+  console.log('  \033[1mdate:\033[0m %s', date);
   msg = inspect(msg, { colors: true, depth: Infinity });
   console.log();
   console.log('  %s', msg);
