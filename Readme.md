@@ -3,6 +3,8 @@
 
   Elastic search CLI for nodejs.
 
+  ![](https://dl.dropboxusercontent.com/u/6396913/misc/Screen%20Shot%202014-01-28%20at%206.46.49%20PM.png)
+
 ## Installation
 
 ```
