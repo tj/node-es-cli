@@ -40,10 +40,6 @@ query.on('data', function(logs){
   logs.map(output);
 });
 
-process.on('exit', function(){
-  console.log();
-});
-
 /**
  * Format output for `log`.
  */
@@ -56,17 +52,18 @@ function output(log) {
   var level = log.level;
   var type = log.type;
 
-  var color = '36';
+  var color = '0';
   if ('warn' == level) color = '33';
   if ('error' == level) color = '31';
   if ('fatal' == level) color = '31';
 
   console.log();
-  console.log('   type: %s', type);
-  console.log('   host: %s', host);
-  console.log('  level: %s', level);
-  console.log('   date: %s', date);
+  console.log('   \033[1mtype:\033[0m %s', type);
+  console.log('   \033[1mhost:\033[0m %s', host);
+  console.log('  \033[1mlevel:\033[0m \033[' + color + 'm%s\033[0m', level);
+  console.log('   \033[1mdate:\033[0m %s', date);
   msg = inspect(msg, { colors: true, depth: Infinity });
   console.log();
   console.log('  %s', msg);
+  console.log();
 }
