@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var pkg = require('../package');
+var moment = require('moment');
+var fmt = require('printf');
+var ES = require('..');
+
+// options
+
+program
+  .version(pkg.version)
+  .usage('[options] [query]')
+  .option('-u, --url <url>', 'elastic search url')
+  .option('-i, --index <name>', 'index name')
+  .option('-t, --type <name>', 'index type')
+  .parse(process.argv);
+
+// setup
+
+var es = new ES({
+  url: program.url,
+  index: program.index,
+  type: program.type
+});
+
+// query
+
+var str = program.args.join(' ');
+var query = es.query(str);
+
+// output
+
+query.on('data', function(logs){
+  logs.map(output);
+});
+
+/**
+ * Format output for `log`.
+ */
+
+function output(log) {
+  var format = 'MMMM Do YYYY, h:mm:ss a';
+  var date = moment(log.timestamp).format(format);
+  var host = log.hostname;
+  var msg = log.message;
+  var level = log.level;
+  var type = log.type;
+
+  console.log(fmt('  %s (%s) %s - %s - %s', date, host, level, type, msg));
+}
