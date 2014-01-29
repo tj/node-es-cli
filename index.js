@@ -46,6 +46,7 @@ ES.prototype.query = function(str, opts){
 
   // options
   var size = opts.size || 10;
+  var sort = opts.sort || 'timestamp:desc';
 
   // url
   debug('query %j %j', str, opts);
@@ -55,7 +56,7 @@ ES.prototype.query = function(str, opts){
 
   request
   .get(url)
-  .query({ q: str, size: size })
+  .query({ q: str, size: size, sort: sort })
   .end(function(err, res){
     if (err) return e.emit('error', err);
     if (res.error) return e.emit('error', res.error);

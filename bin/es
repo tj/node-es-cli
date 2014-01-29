@@ -19,6 +19,7 @@ program
   .option('-u, --url <url>', 'elastic search url')
   .option('-i, --index <name>', 'index name')
   .option('-t, --type <name>', 'index type')
+  .option('-s, --sort <fields>', 'sort fields [timestamp:desc]', 'timestamp:desc')
   .option('-n, --max <n>', 'max number of results [10]', '10')
   .parse(process.argv);
 
