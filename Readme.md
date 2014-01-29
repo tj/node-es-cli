@@ -50,10 +50,10 @@ Check out the last 10 errors:
 $ es -u <es-url> level:error
 ```
 
-Check out events for the users luna and tobi:
+Check out the last 1000 events for the users luna and tobi:
 
 ```
-$ es -u <es-url> user:luna OR user:tobi -n 1000
+$ es -u <es-url> -n 1000 user:luna OR user:tobi
 ```
 
 # License
