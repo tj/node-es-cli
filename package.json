@@ -1,13 +1,23 @@
 {
-  "name": "<name>",
+  "name": "es-cli",
   "version": "0.0.1",
-  "repository": "visionmedia/<name>",
-  "description": "",
-  "keywords": [],
-  "dependencies": {},
+  "repository": "visionmedia/node-es-cli",
+  "description": "Elasticsearch CLI for querying your logs",
+  "keywords": [
+    "es",
+    "elastic search",
+    "elasticsearch",
+    "logs",
+    "cli",
+    "command"
+  ],
+  "dependencies": {
+    "commander": "~2.1.0",
+    "superagent": "~0.16.0"
+  },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"  
+    "should": "*"
   },
   "license": "MIT"
 }
