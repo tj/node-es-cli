@@ -19,12 +19,14 @@ $ npm install -g es-cli
 
   Options:
 
-    -h, --help          output usage information
-    -V, --version       output the version number
-    -u, --url <url>     elastic search url
-    -i, --index <name>  index name
-    -t, --type <name>   index type
-    -n, --max <n>       max number of results [10]
+    -h, --help           output usage information
+    -V, --version        output the version number
+    -u, --url <url>      elastic search url
+    -i, --index <name>   index name
+    -t, --type <name>    index type
+    -s, --sort <fields>  sort fields [timestamp:desc]
+    -n, --max <n>        max number of results [10]
+
 
 ```
 
