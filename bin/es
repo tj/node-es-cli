@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+var inspect = require('util').inspect;
 var program = require('commander');
 var pkg = require('../package');
 var moment = require('moment');
@@ -35,7 +36,6 @@ var query = es.query(str);
 
 // output
 
-console.log();
 query.on('data', function(logs){
   logs.map(output);
 });
@@ -56,11 +56,13 @@ function output(log) {
   var level = log.level;
   var type = log.type;
 
-  var color = '32';
+  var color = '36';
   if ('warn' == level) color = '33';
   if ('error' == level) color = '31';
   if ('fatal' == level) color = '31';
 
-  var f = '  \033[90m%s\033[0m \033[36m(%s) \033[' + color + 'm%s\033[0m - %s - %s';
-  console.log(fmt(f, date, host, level, type, msg));
+  console.log();
+  console.log('  %s - %s (%s) - %s', date, level, host, type);
+  msg = inspect(msg, { colors: true, depth: Infinity });
+  console.log('  %s', msg);
 }
