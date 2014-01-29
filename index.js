@@ -40,6 +40,7 @@ function ES(opts) {
 ES.prototype.query = function(str, opts){
   var e = new Emitter;
   opts = opts || {};
+  str = str || '*';
 
   debug('query %j %j', str, opts);
   var url = this.url + '/' + this.index + '/' + this.type + '/_search';
