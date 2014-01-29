@@ -56,5 +56,10 @@ function output(log) {
   var level = log.level;
   var type = log.type;
 
-  console.log(fmt('  %s (%s) %s - %s - %s', date, host, level, type, msg));
+  var color = '32';
+  if ('warn' == level) color = '33';
+  if ('error' == level) color = '31';
+  if ('fatal' == level) color = '31';
+
+  console.log(fmt('  \033[90m%s\033[0m \033[36m(%s) \033[' + color + 'm%s\033[0m - %s - %s', date, host, level, type, msg));
 }
