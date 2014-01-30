@@ -7,6 +7,7 @@ var Emitter = require('events').EventEmitter;
 var debug = require('debug')('es-cli');
 var request = require('superagent');
 var assert = require('assert');
+var parse = require('elucene');
 
 /**
  * Expose `ES` client.
@@ -40,11 +41,14 @@ function ES(opts) {
 ES.prototype.query = function(str, opts){
   var e = new Emitter;
   opts = opts || {};
-  str = str || '*';
+
+  // parse
+  var query = parse(str);
+  var str = query.string || '*';
 
   // options
-  var size = opts.size || 10;
-  var sort = opts.sort || 'timestamp:desc';
+  var size = (query.limit && query.limit[0]) || 10;
+  var sort = (query.sort && query.sort[0]) || 'timestamp:desc';
 
   // url
   debug('query %j %j', str, opts);
