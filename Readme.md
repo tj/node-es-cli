@@ -63,6 +63,7 @@ $ es -u <es-url> level:error LIMIT 10 SORT timestamp:desc
 
 ```
 $ es -u <es-url> level:error FIELDS message
+$ es -u <es-url> login FIELDS id name
 ```
 
 ## Log format
