@@ -17,8 +17,6 @@ program
   .version(pkg.version)
   .usage('[options] [query]')
   .option('-u, --url <url>', 'elastic search url')
-  .option('-s, --sort <fields>', 'sort fields [timestamp:desc]', 'timestamp:desc')
-  .option('-n, --max <n>', 'max number of results [10]', '10')
   .parse(process.argv);
 
 // setup
