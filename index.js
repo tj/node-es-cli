@@ -24,8 +24,6 @@ module.exports = ES;
 function ES(opts) {
   assert(opts.url, 'elastic search --url required');
   this.url = opts.url;
-  this.index = opts.index;
-  this.type = opts.type;
 }
 
 /**
@@ -50,9 +48,7 @@ ES.prototype.query = function(str, opts){
 
   // url
   debug('query %j %j', str, opts);
-  var url = this.index
-    ? this.url + '/' + this.index + '/' + this.type + '/_search'
-    : this.url + '/_search';
+  var url = this.url + '/_search';
 
   request
   .get(url)
