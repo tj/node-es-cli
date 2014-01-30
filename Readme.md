@@ -50,7 +50,19 @@ $ es -u <es-url> level:error
 Check out the last 1000 events for the users luna and tobi:
 
 ```
-$ es -u <es-url> -n 1000 user:luna OR user:tobi
+$ es -u <es-url> user:luna OR user:tobi LIMIT 1000
+```
+
+ Limit the number of results and sort:
+
+```
+$ es -u <es-url> level:error LIMIT 10 SORT timestamp:desc
+```
+
+  Specify the fields to respond with:
+
+```
+$ es -u <es-url> level:error FIELDS message
 ```
 
 # License
