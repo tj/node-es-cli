@@ -1,7 +1,8 @@
 
 # es-cli
 
-  Elastic search CLI for nodejs.
+  Elastic search CLI for nodejs, using [elucene](https://github.com/visionmedia/elucene) to provide
+  __FIELDS__, __SORT__, and __LIMIT__.
 
   ![](https://dl.dropboxusercontent.com/u/6396913/misc/Screen%20Shot%202014-01-28%20at%206.46.49%20PM.png)
 
