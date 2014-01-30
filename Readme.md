@@ -65,6 +65,28 @@ $ es -u <es-url> level:error LIMIT 10 SORT timestamp:desc
 $ es -u <es-url> level:error FIELDS message
 ```
 
+## Log format
+
+ Log objects should use the following format:
+
+```js
+{ timestamp: <timestamp>,
+  hostname: <hostname>,
+  message: <message-object>,
+  level: <log-level>,
+  type: <log-type> }
+```
+
+  For example:
+
+```js
+{ timestamp: 1390948474720,
+  hostname: 'data',
+  message: { user: 'tobi', name: { first: 'Tobi', last: 'Ferret' } },
+  level: 'info',
+  type: 'user logout' }
+```
+
 # License
 
   MIT

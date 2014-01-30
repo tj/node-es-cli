@@ -8,6 +8,7 @@ var debug = require('debug')('es-cli');
 var request = require('superagent');
 var assert = require('assert');
 var parse = require('elucene');
+var only = require('only');
 
 /**
  * Expose `ES` client.
@@ -64,16 +65,20 @@ ES.prototype.query = function(str, opts){
     var logs = res.body.hits;
     debug('%s -> %s (%sms)', res.status, logs.total, res.body.took);
 
-    e.emit('data', logs.hits.map(normalize));
+    e.emit('data', logs.hits.map(normalize(query.fields)));
   });
 
   return e;
 };
 
 /**
- * Normalize `log`.
+ * Normalize logs with optional field filtering.
  */
 
-function normalize(log) {
-  return log._source;
+function normalize(fields) {
+  return function(log){
+    log = log._source;
+    if (fields) log.message = only(log.message, fields);
+    return log;
+  }
 }
