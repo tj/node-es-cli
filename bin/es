@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+var humanize = require('humanize-number');
 var inspect = require('util').inspect;
 var program = require('commander');
 var pkg = require('../package');
@@ -34,7 +35,7 @@ if (program.stats) {
     if (err) throw err;
     var all = res._all;
     console.log();
-    console.log('  - count: %s', all.primaries.docs.count);
+    console.log('  - count: %s', humanize(all.primaries.docs.count));
     console.log('  - store: %s', all.primaries.store.size);
     console.log();
   });
