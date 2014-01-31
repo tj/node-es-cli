@@ -18,7 +18,7 @@ program
   .version(pkg.version)
   .usage('[options] [query]')
   .option('-u, --url <url>', 'elastic search url')
-  .option('-c, --count', 'output query counts')
+  .option('-c, --count', 'output result count')
   .option('-T, --types', 'output log types')
   .option('-S, --stats', 'output log stats')
   .parse(process.argv);

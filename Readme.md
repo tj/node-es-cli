@@ -23,7 +23,7 @@ $ npm install -g es-cli
     -h, --help       output usage information
     -V, --version    output the version number
     -u, --url <url>  elastic search url
-    -c, --count      output query counts
+    -c, --count      output result count
     -T, --types      output log types
     -S, --stats      output log stats
 
