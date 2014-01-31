@@ -47,26 +47,6 @@ ES.prototype.stats = function(fn){
   });
 };
 
-
-/**
- * Respond with mappings.
- *
- * @param {Function} fn
- * @api public
- */
-
-ES.prototype.mapping = function(fn){
-  var url = this.url + '/_mapping';
-
-  request
-  .get(url)
-  .end(function(err, res){
-    if (err) return fn(err);
-    if (res.error) return fn(res.error);
-    fn(null, res.body);
-  });
-};
-
 /**
  * Respond with counts for query `str`.
  *
