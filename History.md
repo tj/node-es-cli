@@ -1,4 +1,13 @@
 
+0.2.0 / 2014-01-31
+==================
+
+ * add humanization to count
+ * add a few simple stats
+ * add --types
+ * update elucene for SELECT
+ * docs
+
 0.1.0 / 2014-01-30
 ==================
 
