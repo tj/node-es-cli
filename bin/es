@@ -18,9 +18,14 @@ program
   .version(pkg.version)
   .usage('[options] [query]')
   .option('-u, --url <url>', 'elastic search url')
+  .option('-c, --count', 'output query counts')
   .option('-T, --types', 'output log types')
   .option('-S, --stats', 'output log stats')
   .parse(process.argv);
+
+// query
+
+var str = program.args.join(' ');
 
 // setup
 
@@ -28,7 +33,7 @@ var es = new ES({
   url: program.url
 });
 
-// stats
+// --stats
 
 if (program.stats) {
   return es.stats(function(err, res){
@@ -41,7 +46,7 @@ if (program.stats) {
   });
 }
 
-// types
+// --types
 
 if (program.types) {
   return es.mapping(function(err, res){
@@ -57,13 +62,18 @@ if (program.types) {
   });
 }
 
+// --count
+
+if (program.count) {
+  return es.count(str, function(err, res){
+    if (err) throw err;
+    console.log(res.count);
+  });
+}
+
 // query
 
-var str = program.args.join(' ');
-
-var query = es.query(str, {
-  size: ~~program.max
-});
+var query = es.query(str);
 
 // output
 
