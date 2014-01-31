@@ -17,6 +17,7 @@ program
   .version(pkg.version)
   .usage('[options] [query]')
   .option('-u, --url <url>', 'elastic search url')
+  .option('-T, --types', 'output log types')
   .parse(process.argv);
 
 // setup
@@ -24,6 +25,22 @@ program
 var es = new ES({
   url: program.url
 });
+
+// types
+
+if (program.types) {
+  return es.mapping(function(err, res){
+    if (err) throw err;
+    var indexes = Object.keys(res);
+    var types = Object.keys(res[indexes[0]]);
+
+    console.log();
+    types.forEach(function(type){
+      console.log('  - %s', type);
+    });
+    console.log();
+  });
+}
 
 // query
 

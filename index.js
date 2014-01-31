@@ -29,6 +29,25 @@ function ES(opts) {
 }
 
 /**
+ * Respond with mapping.
+ *
+ * @param {Function} fn
+ * @api public
+ */
+
+ES.prototype.mapping = function(fn){
+  var url = this.url + '/_mapping';
+
+  request
+  .get(url)
+  .end(function(err, res){
+    if (err) return fn(err);
+    if (res.error) return fn(res.error);
+    fn(null, res.body);
+  });
+};
+
+/**
  * Query with `str` and return an emitter.
  *
  * TODO: .sort
