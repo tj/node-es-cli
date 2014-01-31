@@ -29,7 +29,27 @@ function ES(opts) {
 }
 
 /**
- * Respond with mapping.
+ * Respond with stats.
+ *
+ * @param {Function} fn
+ * @api public
+ */
+
+ES.prototype.stats = function(fn){
+  var url = this.url + '/_stats';
+
+  request
+  .get(url)
+  .end(function(err, res){
+    if (err) return fn(err);
+    if (res.error) return fn(res.error);
+    fn(null, res.body);
+  });
+};
+
+
+/**
+ * Respond with mappings.
  *
  * @param {Function} fn
  * @api public

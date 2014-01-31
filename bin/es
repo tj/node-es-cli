@@ -18,6 +18,7 @@ program
   .usage('[options] [query]')
   .option('-u, --url <url>', 'elastic search url')
   .option('-T, --types', 'output log types')
+  .option('-S, --stats', 'output log stats')
   .parse(process.argv);
 
 // setup
@@ -25,6 +26,19 @@ program
 var es = new ES({
   url: program.url
 });
+
+// stats
+
+if (program.stats) {
+  return es.stats(function(err, res){
+    if (err) throw err;
+    var all = res._all;
+    console.log();
+    console.log('  - count: %s', all.primaries.docs.count);
+    console.log('  - store: %s', all.primaries.store.size);
+    console.log();
+  });
+}
 
 // types
 
