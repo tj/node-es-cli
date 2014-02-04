@@ -77,8 +77,6 @@ ES.prototype.count = function(str, fn){
 /**
  * Query with `str` and return an emitter.
  *
- * TODO: .sort
- *
  * @param {String} str
  * @param {Object} opts
  * @return {Emitter}
@@ -112,6 +110,7 @@ ES.prototype.query = function(str, opts){
     debug('%s -> %s (%sms)', res.status, logs.total, res.body.took);
 
     e.emit('data', logs.hits.map(normalize(query.fields)));
+    e.emit('end');
   });
 
   return e;

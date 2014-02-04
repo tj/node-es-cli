@@ -20,7 +20,14 @@ program
   .option('-u, --url <url>', 'elastic search url')
   .option('-c, --count', 'output result count')
   .option('-S, --stats', 'output log stats')
+  .option('-f, --tail', 'tail the log')
   .parse(process.argv);
+
+// size
+
+var size = process.stdout.getWindowSize();
+var cols = size[0];
+var rows = size[1];
 
 // query
 
@@ -50,7 +57,31 @@ if (program.stats) {
 if (program.count) {
   return es.count(str, function(err, res){
     if (err) throw err;
-    console.log(res.count);
+    console.log(humanize(res.count));
+  });
+}
+
+// --tail
+
+if (program.tail) return tail(str);
+
+/**
+ * Tail with the given query `str`.
+ */
+
+function tail(str, prev) {
+  var now = Date.now();
+  var prev = prev || now;
+
+  var range = ' timestamp:[' + prev + ' TO ' + now + ']';
+  var query = es.query(str + range);
+
+  query.on('data', function(logs){
+    logs.forEach(output);
+  });
+
+  query.on('end', function(){
+    tail(str, now);
   });
 }
 
@@ -61,15 +92,22 @@ var query = es.query(str);
 // output
 
 query.on('data', function(logs){
-  logs.map(output);
+  logs.forEach(function(log){
+    output(log, { format: 'MMMM Do, h:mm:ssa' });
+  });
+});
+
+query.on('end', function(){
+  console.log();
 });
 
 /**
- * Format output for `log`.
+ * Output `log`.
  */
 
-function output(log) {
-  var format = 'MMMM Do, h:mm:ssa';
+function output(log, opts) {
+  opts = opts || {};
+  var format = opts.format || 'hh:mm:ssa';
   var date = moment(log.timestamp).format(format);
   var host = log.hostname;
   var msg = log.message;
@@ -81,13 +119,20 @@ function output(log) {
   if ('error' == level) color = '31';
   if ('fatal' == level) color = '31';
 
-  console.log();
-  console.log('  \033[1mtype:\033[0m %s', type);
-  console.log('  \033[1mhost:\033[0m %s', host);
-  console.log('  \033[1mlevel:\033[0m \033[' + color + 'm%s\033[0m', level);
-  console.log('  \033[1mdate:\033[0m %s', date);
   msg = inspect(msg, { colors: true, depth: Infinity });
+
   console.log();
-  console.log('  %s', msg);
+  console.log(hr());
+  console.log('  \033[' + color + 'm%s\033[m | %s | %s | %s', level, host, type, date);
+  console.log(hr());
   console.log();
+  console.log(msg.replace(/^/gm, '  '));
+}
+
+/**
+ * Return a horizontal rule.
+ */
+
+function hr() {
+  return '\033[90m' + Array(cols).join('-') + '\033[m';
 }
