@@ -109,7 +109,10 @@ ES.prototype.query = function(str, opts){
     var logs = res.body.hits;
     debug('%s -> %s (%sms)', res.status, logs.total, res.body.took);
 
-    e.emit('data', logs.hits.map(normalize(query.fields)));
+    logs.hits.map(normalize(query.fields)).forEach(function(log){
+      e.emit('data', log);
+    });
+
     e.emit('end');
   });
 

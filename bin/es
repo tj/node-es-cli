@@ -76,8 +76,8 @@ function tail(str, prev) {
   var range = ' timestamp:[' + prev + ' TO ' + now + ']';
   var query = es.query(str + range);
 
-  query.on('data', function(logs){
-    logs.forEach(output);
+  query.on('data', function(log){
+    output(log);
   });
 
   query.on('end', function(){
@@ -93,10 +93,8 @@ var query = es.query(str);
 
 // output
 
-query.on('data', function(logs){
-  logs.forEach(function(log){
-    output(log, { format: 'MMMM Do, h:mm:ssa' });
-  });
+query.on('data', function(log){
+  output(log, { format: 'MMMM Do, h:mm:ssa' });
 });
 
 query.on('end', function(){
