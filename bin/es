@@ -47,7 +47,7 @@ if (program.stats) {
     var all = res._all;
     console.log();
     console.log('  - count: %s', humanize(all.primaries.docs.count));
-    console.log('  - store: %s', all.primaries.store.size);
+    console.log('  - store: %s', all.primaries.store.size_in_bytes);
     console.log();
   });
 }
