@@ -119,6 +119,7 @@ function output(log, opts) {
   if ('error' == level) color = '31';
   if ('fatal' == level) color = '31';
 
+  msg = JSON.parse(msg);
   msg = inspect(msg, { colors: true, depth: Infinity });
 
   console.log();

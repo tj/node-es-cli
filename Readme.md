@@ -78,7 +78,7 @@ $ es -u <es-url> login FIELDS id name
 ```js
 { timestamp: <timestamp>,
   hostname: <hostname>,
-  message: <message-object>,
+  message: <message-json>,
   level: <log-level>,
   type: <log-type> }
 ```
@@ -88,7 +88,7 @@ $ es -u <es-url> login FIELDS id name
 ```js
 { timestamp: 1390948474720,
   hostname: 'data',
-  message: { user: 'tobi', name: { first: 'Tobi', last: 'Ferret' } },
+  message: '{"foo":"bar"}',
   level: 'info',
   type: 'user logout' }
 ```
