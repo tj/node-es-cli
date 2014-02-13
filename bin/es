@@ -81,7 +81,9 @@ function tail(str, prev) {
   });
 
   query.on('end', function(){
-    tail(str, now);
+    setTimeout(function(){
+      tail(str, now);
+    }, 100);
   });
 }
 
