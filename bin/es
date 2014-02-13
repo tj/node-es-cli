@@ -19,7 +19,6 @@ program
   .version(pkg.version)
   .usage('[options] [query]')
   .option('-u, --url <url>', 'elastic search url')
-  .option('-c, --count', 'output result count')
   .option('-S, --stats', 'output log stats')
   .option('-f, --tail', 'tail the log')
   .parse(process.argv);
@@ -50,15 +49,6 @@ if (program.stats) {
     console.log('  - count: %s', humanize(all.primaries.docs.count));
     console.log('  - store: %s', bytes(all.primaries.store.size_in_bytes));
     console.log();
-  });
-}
-
-// --count
-
-if (program.count) {
-  return es.count(str, function(err, res){
-    if (err) throw err;
-    console.log(humanize(res.count));
   });
 }
 

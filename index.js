@@ -48,33 +48,6 @@ ES.prototype.stats = function(fn){
 };
 
 /**
- * Respond with counts for query `str`.
- *
- * @param {String} str
- * @param {Function} fn
- * @api public
- */
-
-ES.prototype.count = function(str, fn){
-  // parse
-  var query = parse(str);
-  var str = query.string || '*';
-
-  // url
-  debug('count %j', str);
-  var url = this.url + '/_count';
-
-  request
-  .get(url)
-  .query({ q: str })
-  .end(function(err, res){
-    if (err) return fn(err);
-    if (res.error) return fn(res.error);
-    fn(null, res.body);
-  });
-};
-
-/**
  * Query with `str` and return an emitter.
  *
  * @param {String} str
