@@ -99,6 +99,7 @@ ES.prototype.query = function(str, opts){
 function normalize(fields) {
   return function(log){
     log = log._source;
+    log.message = JSON.parse(log.message);
     if (fields) log.message = only(log.message, fields);
     return log;
   }
