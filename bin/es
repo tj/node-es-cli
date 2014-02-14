@@ -114,7 +114,7 @@ function output(log, opts) {
 
   console.log();
   console.log(hr());
-  console.log('  \033[' + color + 'm%s\033[m | %s | %s | %s', level, host, type, date);
+  console.log('   \033[' + color + 'm%s\033[m | %s | %s | %s', level, host, type, date);
   console.log(hr());
   console.log();
   console.log(msg.replace(/^/gm, '  '));
@@ -125,5 +125,5 @@ function output(log, opts) {
  */
 
 function hr() {
-  return '\033[90m' + Array(cols).join('─') + '\033[m';
+  return '  \033[90m' + Array(cols - 4).join('─') + '\033[m';
 }
