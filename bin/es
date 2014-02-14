@@ -125,5 +125,5 @@ function output(log, opts) {
  */
 
 function hr() {
-  return '\033[90m' + Array(cols).join('-') + '\033[m';
+  return '\033[90m' + Array(cols).join('─') + '\033[m';
 }
