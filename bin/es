@@ -64,7 +64,7 @@ function tail(str, prev) {
   var now = Date.now();
   var prev = prev || now;
 
-  var range = ' timestamp:[' + prev + ' TO ' + now + ']';
+  var range = ' AND timestamp:[' + prev + ' TO ' + now + ']';
   var query = es.query(str + range);
 
   query.on('data', function(log){
