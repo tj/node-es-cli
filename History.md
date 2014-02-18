@@ -1,4 +1,17 @@
 
+0.3.1 / 2014-02-18
+==================
+
+ * add padding
+ * add humanization of store size
+ * add tailing support. Closes #6
+ * change to use use solid lines
+ * remove redundant --counts
+ * fix range
+ * fix FIELDS support
+ * fix store.size for ES 1.0
+ * remove --types
+
 0.3.0 / 2014-01-31
 ==================
 
