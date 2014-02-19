@@ -1,4 +1,11 @@
 
+0.3.2 / 2014-02-18
+==================
+
+ * add non-tty support
+ * fix implied limit when tailing
+ * fix tail with no query
+
 0.3.1 / 2014-02-18
 ==================
 
