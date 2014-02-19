@@ -25,9 +25,14 @@ program
 
 // size
 
-var size = process.stdout.getWindowSize();
-var cols = size[0];
-var rows = size[1];
+if (process.stdout.isTTY) {
+  var size = process.stdout.getWindowSize();
+  var cols = size[0];
+  var rows = size[1];
+} else {
+  var cols = 180;
+  var rows = 40;
+}
 
 // query
 
