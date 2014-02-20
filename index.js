@@ -65,7 +65,7 @@ ES.prototype.query = function(str, opts){
   var str = query.string || '*';
 
   // options
-  var size = (query.limit && query.limit[0]) || 10;
+  var size = (query.limit && query.limit[0]) || opts.limit || 10;
   var sort = (query.sort && query.sort[0]) || 'timestamp:desc';
 
   // url
