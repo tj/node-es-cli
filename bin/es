@@ -71,7 +71,7 @@ function tail(str, prev) {
 
   str = str || '*';
   var range = ' AND timestamp:[' + prev + ' TO ' + now + ']';
-  var query = es.query(str + range, { limit: 1e9 });
+  var query = es.query(str + range, { limit: 1e5 });
 
   query.on('data', function(log){
     output(log);
