@@ -18,10 +18,26 @@ var ES = require('..');
 program
   .version(pkg.version)
   .usage('[options] [query]')
+  .option('-e, --examples', 'output query examples')
   .option('-u, --url <url>', 'elastic search url')
   .option('-S, --stats', 'output log stats')
   .option('-f, --tail', 'tail the log')
   .parse(process.argv);
+
+// examples
+
+if (program.examples) {
+  console.log();
+  console.log('  $ logs Loaded a page FROM 1pm');
+  console.log();
+  console.log('  $ logs level:critical LIMIT 5');
+  console.log();
+  console.log('  $ logs Track FROM yesterday');
+  console.log();
+  console.log('  $ logs hostname:api-1 level:error some-uuid');
+  console.log();
+  return;
+}
 
 // size
 

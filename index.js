@@ -6,6 +6,7 @@
 var Emitter = require('events').EventEmitter;
 var debug = require('debug')('es-cli');
 var request = require('superagent');
+var parseDate = require('date.js');
 var assert = require('assert');
 var parse = require('elucene');
 var only = require('only');
@@ -57,6 +58,7 @@ ES.prototype.stats = function(fn){
  */
 
 ES.prototype.query = function(str, opts){
+  var reverse = true;
   var e = new Emitter;
   opts = opts || {};
 
@@ -65,8 +67,16 @@ ES.prototype.query = function(str, opts){
   var str = query.string || '*';
 
   // options
-  var size = (query.limit && query.limit[0]) || opts.limit || 10;
+  var size = (query.limit && query.limit[0]) || opts.limit || 100;
   var sort = (query.sort && query.sort[0]) || 'timestamp:desc';
+
+  // date.js favours the next day, so for now we'll
+  // just always add "last" to give it a hint
+  if (query.from) {
+    str += from(query.from);
+    sort = 'timestamp:asc';
+    reverse = false;
+  }
 
   // url
   debug('query %j %j', str, opts);
@@ -82,7 +92,14 @@ ES.prototype.query = function(str, opts){
     var logs = res.body.hits;
     debug('%s -> %s (%sms)', res.status, logs.total, res.body.took);
 
-    logs.hits.map(normalize(query.fields)).forEach(function(log){
+    // normalize
+    logs = logs.hits.map(normalize(query.fields));
+
+    // ensure latest is at emitted last
+    if (reverse) logs = logs.reverse();
+
+    // emit
+    logs.forEach(function(log){
       e.emit('data', log);
     });
 
@@ -91,6 +108,19 @@ ES.prototype.query = function(str, opts){
 
   return e;
 };
+
+/**
+ * Return range from date range.
+ */
+
+function from(arr) {
+  // HACK: to ensure "1pm" == "last 1pm" etc
+  if (arr.length == 1) arr.unshift('last');
+  var str = arr.join(' ');
+  var from = parseDate(str);
+  var to = Date.now();
+  return ' AND timestamp:[' + +from + ' TO ' + to + ']';
+}
 
 /**
  * Normalize logs with optional field filtering.

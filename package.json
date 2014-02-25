@@ -17,10 +17,11 @@
     "debug": "~0.7.4",
     "printf": "~0.1.2",
     "moment": "~2.5.1",
-    "elucene": "~0.1.0",
+    "elucene": "~0.3.2",
     "only": "0.0.2",
     "humanize-number": "0.0.2",
-    "bytes": "~0.2.1"
+    "bytes": "~0.2.1",
+    "date.js": "~0.2.0"
   },
   "devDependencies": {
     "mocha": "*",
