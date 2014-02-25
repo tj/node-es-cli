@@ -1,6 +1,6 @@
 {
   "name": "es-cli",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "repository": "visionmedia/node-es-cli",
   "description": "Elasticsearch CLI for querying your logs",
   "keywords": [
