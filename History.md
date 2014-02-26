@@ -1,4 +1,9 @@
 
+0.4.1 / 2014-02-26
+==================
+
+ * add quote helper to retain quoting implied via the shell
+
 0.4.0 / 2014-02-25
 ==================
 
