@@ -28,7 +28,7 @@ program
 
 if (program.examples) {
   console.log();
-  console.log('  $ logs Loaded a page FROM 1pm');
+  console.log('  $ logs level:info AND "Loaded a page" FROM 1pm');
   console.log();
   console.log('  $ logs level:critical LIMIT 5');
   console.log();
@@ -52,7 +52,7 @@ if (process.stdout.isTTY) {
 
 // query
 
-var str = program.args.join(' ');
+var str = program.args.map(quote).join(' ');
 
 // setup
 
@@ -140,6 +140,24 @@ function output(log, opts) {
   console.log(hr());
   console.log();
   console.log(msg.replace(/^/gm, '  '));
+}
+
+/**
+ * Quote phrases in an argument.
+ */
+
+function quote(str) {
+  if (str.match(/^\w+:/) && str.match(/\s+/)) {
+    var field = str.split(':')[0];
+    var value = str.split(':')[1];
+    return field + ':"' + value + '"';
+  }
+
+  if (str.match(/\s+/)) {
+    return '"' + str + '"';
+  }
+
+  return str;
 }
 
 /**
