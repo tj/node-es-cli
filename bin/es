@@ -34,7 +34,7 @@ if (program.examples) {
   console.log();
   console.log('  $ logs Track FROM yesterday');
   console.log();
-  console.log('  $ logs hostname:api-1 level:error some-uuid');
+  console.log('  $ logs hostname:api-1 AND level:error AND some-uuid');
   console.log();
   return;
 }
